@@ -101,7 +101,7 @@ body {
 # 3. Load and preprocess data (cached)
 @st.cache_data
 def load_data():
-    df_local = pd.read_csv("shortened_movie_dataset3.csv")
+    df_local = pd.read_csv("shortened_movie_dataset5.csv")
     # Parse release_date flexibly, once
     if 'release_date' in df_local.columns:
         raw = df_local['release_date'].astype(str).str.strip()
@@ -325,7 +325,7 @@ if st.session_state['top_pool']:
                 st.markdown(f'<div class="movie-card">', unsafe_allow_html=True)
                 col1, col2 = st.columns([1, 2])
                 with col1:
-                    path = row.get('backdrop_path') or row.get('poster_path')
+                    path = row.get('poster_path') or row.get('poster_path')
                     if isinstance(path, str) and path.strip():
                         st.image(f"https://image.tmdb.org/t/p/w500{path}", use_container_width=True)
                     else:
@@ -357,6 +357,33 @@ if st.session_state['top_pool']:
                     if 'homepage' in row.index and pd.notna(row.get('homepage')):
                         homepage = str(row['homepage'])
                         if homepage.startswith("http"):
-                            st.markdown(f'[🔗 Official Website]({homepage})')
-                st.markdown('</div>', unsafe_allow_html=True)
-                st.markdown("---")
+                            st.markdown(f'[🔗 Official Website]({homepage})')                           
+                            # Watch Trailer button logic
+                    if 'trailer_url' in row.index and pd.notna(row.get('trailer_url')):
+                        trailer_url = row['trailer_url']
+                    else:
+                        # fallback to YouTube search
+                        title_search = title.replace(" ", "+")
+                        trailer_url = f"https://www.youtube.com/results?search_query={title_search}+trailer"
+
+                        # Display trailer button as a clickable link (opens in new tab)
+                    st.markdown(f"""
+                            <a href="{trailer_url}" target="_blank" rel="noopener noreferrer">
+                                <button style="
+                                    background-color: #ff4b4b;
+                                    color: white;
+                                    padding: 8px 16px;
+                                    border: none;
+                                    border-radius: 6px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                    transition: all 0.2s ease;">
+                                    ▶️ Watch Trailer
+                                </button>
+                            </a>
+                            """,
+                            unsafe_allow_html=True
+                        )
+                    
+
+
