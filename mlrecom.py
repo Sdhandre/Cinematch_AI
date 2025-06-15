@@ -351,6 +351,23 @@ stSelectbox div[data-baseweb="select"] > div {
             opacity: 0;
         }
     }
+        .trailer-button {
+        background: linear-gradient(to right, #ff4b4b, #e63c3c);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+        display: inline-block;
+        text-decoration: none;
+    }
+    .trailer-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -658,26 +675,10 @@ if st.session_state['top_pool']:
                         trailer_url = f"https://www.youtube.com/results?search_query={title_search}+trailer"
 
                     # Display trailer button as a clickable link (opens in new tab)
-                    st.markdown(f"""
-                            <a href="{trailer_url}" target="_blank" rel="noopener noreferrer">
-                                <button style="
-                                    background: linear-gradient(to right, var(--primary), var(--primary-dark));
-                                    color: white;
-                                    padding: 10px 20px;
-                                    border: none;
-                                    border-radius: 8px;
-                                    font-weight: 600;
-                                    cursor: pointer;
-                                    transition: all 0.3s ease;
-                                    margin-top: 15px;
-                                    display: inline-block;">
-                                    ▶️ Watch Trailer
-                                </button>
-                            </a>
-                            """,
-                            unsafe_allow_html=True
-                        )
-                st.markdown('</div>', unsafe_allow_html=True)
+st.markdown(
+    f'<a href="{trailer_url}" target="_blank" rel="noopener noreferrer" class="trailer-button">▶️ Watch Trailer</a>',
+    unsafe_allow_html=True
+)
 
 # Footer
 st.markdown("""
