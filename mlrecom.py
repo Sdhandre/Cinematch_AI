@@ -675,10 +675,10 @@ if st.session_state['top_pool']:
                         trailer_url = f"https://www.youtube.com/results?search_query={title_search}+trailer"
 
                     # Display trailer button as a clickable link (opens in new tab)
-st.markdown(
-    f'<a href="{trailer_url}" target="_blank" rel="noopener noreferrer" class="trailer-button">▶️ Watch Trailer</a>',
-    unsafe_allow_html=True
-)
+                    st.markdown(
+                      f'<a href="{trailer_url}" target="_blank" rel="noopener noreferrer" class="trailer-button">▶️ Watch Trailer</a>',
+                     unsafe_allow_html=True
+                           )
 
 # Footer
 st.markdown("""
